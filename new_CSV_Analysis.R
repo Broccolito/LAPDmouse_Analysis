@@ -43,6 +43,11 @@ compare_ratio = function(file_list){
     particle_total_volume_ratio = particle_count/total_particle_count
     volume_total_volume_ratio = data$volume/total_volume
     
+    #Do a linear regression and return the coef
+    l = lm(particle_total_volume_ratio ~ volume_total_volume_ratio)$coefficients
+    print(filename)
+    print(l)
+    
     # if(window_graphic){
     #   windows(width = 1920, height = 1080)
     # }
