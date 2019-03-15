@@ -167,6 +167,7 @@ for(f in filelist){
   md_file = readLines(f)
   md_file = glue(md_file)
   l = list(
+    "filename" = f,
     "gender" = get_gender(md_file = md_file),
     "particle_size" = get_particle_size(md_file = md_file),
     "exposure_time" = get_exposure_time(md_file = md_file),
@@ -202,4 +203,4 @@ rm(l,i,n,f,md_file, file_name,filelist)
 # get_relative_exposure_estimate(md_file = md_file)
 
 #Example of viewing a json file
-jsonedit(m01)
+jsonedit(m16)
