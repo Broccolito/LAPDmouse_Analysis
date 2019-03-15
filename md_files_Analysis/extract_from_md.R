@@ -1,3 +1,5 @@
+library(listviewer)
+
 #Glue string vector together as one string 
 glue = function(string, collapse = ""){
   if(length(string) <= 1){
@@ -130,7 +132,26 @@ get_relative_exposure_estimate = function(md_file){
 }
 
 #Set the wd to where md files are stored
-setwd("C:/Users/wanju/Desktop/Lung Imaging/md_files")
+get_directory = function(){
+  args <- commandArgs(trailingOnly = FALSE)
+  file <- "--file="
+  rstudio <- "RStudio"
+  
+  match <- grep(rstudio, args)
+  if(length(match) > 0){
+    return(dirname(rstudioapi::getSourceEditorContext()$path))
+  }else{
+    match <- grep(file, args)
+    if (length(match) > 0) {
+      return(dirname(normalizePath(sub(file, "", args[match]))))
+    }else{
+      return(dirname(normalizePath(sys.frames()[[1]]$ofile)))
+    }
+  }
+}
+
+setwd(get_directory())
+
 
 filelist = list.files(pattern = "txt")
 
@@ -179,3 +200,6 @@ rm(l,i,n,f,md_file, file_name,filelist)
 # get_lung_volume(md_file = md_file)
 # get_total_aerosol_deposition(md_file = md_file)
 # get_relative_exposure_estimate(md_file = md_file)
+
+#Example of viewing a json file
+jsonedit(m01)
