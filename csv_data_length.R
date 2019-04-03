@@ -1,6 +1,8 @@
 rm(list = ls())
 graphics.off()
 
+library(readxl)
+
 get_directory = function(){
   args <- commandArgs(trailingOnly = FALSE)
   file <- "--file="
@@ -29,27 +31,40 @@ getinto = function(filename){
 }
 
 wd = get_directory()
+wd = paste0(wd, "/CSV_Data")
 setwd(wd)
 
-fl = list.files(pattern = "rds")
-fl = fl[fl != "dimen_mat.rds"]
-for(i in fl){
-  load(i)
-  i = unlist(strsplit(i, "[.]"))[1]
-  assign(i, f)
+dir_list = list.files(pattern = "m")
+
+dimen_mat = vector()
+for(d in dir_list){
+  
+  getinto(d)
+  file_list = list.files(pattern = "Deposition")
+  file_list = file_list[!grepl("Airway", file_list)]
+  
+  dimen_vec = vector()
+  for(f in file_list){
+    data = read.csv(f)
+    dimen = dim(data)[1]
+    dimen_vec = c(dimen_vec, dimen)
+  }
+  names(dimen_vec) = file_list
+  
+  setwd(wd)
+  
+  dimen_mat = rbind(dimen_mat, dimen_vec)
+  
 }
 
-intercept = vector()
-for(i in ls(pattern = "_mat")){
-  mat = get(i)
-  intercept_x = mat[,3]/(1-mat[,1])
-  intercept = rbind(intercept, intercept_x)
-}
+row.names(dimen_mat) = rep(NULL, dim(dimen_mat)[1])
+colnames(dimen_mat) = c("lobe", "acini", "sublobes")
 
-intercept = as.matrix(intercept)
-row.names(intercept) = rep(NULL, dim(intercept)[1])
+#save(dimen_mat, file = "dimen_mat.rds")
 
-load("dimen_mat.rds")
+#dimen_mat
 
-intercept * dimen_mat
+
+
+
 
