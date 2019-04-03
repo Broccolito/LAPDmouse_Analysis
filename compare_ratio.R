@@ -127,7 +127,7 @@ for(d in dir_list){
 mat_list = ls(pattern = "_mat")
 for(file_name in mat_list){
   f = get(file_name)
-  save(f, file = paste0(file_name, "_reg.rds"))
+  save(f, file = paste0(file_name, ".rds"))
 }
 
 #####Print all the outcomes
