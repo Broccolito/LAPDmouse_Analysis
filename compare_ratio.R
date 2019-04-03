@@ -107,6 +107,8 @@ wd = get_directory()
 setwd(wd)
 wd = paste0(wd, "/CSV_Data")
 setwd(wd)
+file.remove(list.files(pattern = "rds")) #Make sure there is no rds files in the directory
+
 
 dir_list = list.files(pattern = "m")
 
@@ -121,39 +123,19 @@ for(d in dir_list){
   setwd(wd)
 }
 
+#####Save all the regression results
+mat_list = ls(pattern = "_mat")
+for(file_name in mat_list){
+  f = get(file_name)
+  save(f, file = paste0(file_name, "_reg.rds"))
+}
+
 #####Print all the outcomes
-kable(m1_mat)
 
-kable(m2_mat)
-
-kable(m3_mat)
-
-kable(m4_mat)
-
-kable(m5_mat)
-
-kable(m6_mat)
-
-kable(m7_mat)
-
-kable(m8_mat)
-
-kable(m9_mat)
-
-kable(m10_mat)
-
-kable(m11_mat)
-
-kable(m12_mat)
-
-kable(m13_mat)
-
-kable(m14_mat)
-
-kable(m15_mat)
-
-kable(m16_mat)
-
-kable(m17_mat)
-
-kable(m18_mat)
+for(file_name in mat_list){
+  cat(file_name)
+  cat("\n")
+  print(kable(get(file_name)))
+  cat("\n")
+  cat("\n")
+}
