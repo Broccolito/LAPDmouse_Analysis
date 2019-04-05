@@ -62,8 +62,8 @@ compare_ratio = function(file_list){
     #Plot using ggplot
     
     
-    ggplot(data = ratio_data_frame, aes(x = ratio_data_frame$particle_total_volume_ratio,
-                                        y = volume_total_volume_ratio)) +
+    ggplot(data = ratio_data_frame, aes(y = ratio_data_frame$particle_total_volume_ratio,
+                                        x = volume_total_volume_ratio)) +
       xlab("particle total volume ratio") + 
       ylab("volume total volume ratio") + 
       
@@ -83,65 +83,7 @@ compare_ratio = function(file_list){
   }
 }
 
-make_barplot = function(file_list){
-  
-  for(filename in file_list){
-    
-    save_barplot = function(filename){
-      data = read.csv(filename)
-      
-      total_volume = sum(data$volume)
-      particle_count = data$volume * data$mean
-      total_particle_count = sum(particle_count)
-      particle_total_volume_ratio = particle_count/total_particle_count
-      volume_total_volume_ratio = data$volume/total_volume
-      
-      ratio_mat = as.matrix(cbind(particle_total_volume_ratio, volume_total_volume_ratio))
-      ratio_mat = t(ratio_mat[nrow(ratio_mat):1,])
-      index = 1:dim(ratio_mat)[2]
-      ratio_mat = rbind(index, ratio_mat)
-      #colnames(ratio_mat)= c(data$label)
-      colnames(ratio_mat) = c(paste0("l",data$label))
-      
-      ratio_data_frame = as.data.frame(t(ratio_mat))
-      
-      rr = data.frame(index = rep(ratio_data_frame$index, 2),
-                      ratio = c(ratio_data_frame$particle_total_volume_ratio,
-                                ratio_data_frame$volume_total_volume_ratio),
-                      #This is a very bad practice because "legend" is one of the
-                      #Args of data.frame function
-                      Legend = c(rep("particle_total_volume_ratio", dim(ratio_data_frame)[1]),
-                                 rep("volume_total_volume_ratio", dim(ratio_data_frame)[1]))
-      )
-      
-      ggplot(data = rr, aes(x = rr$index,
-                            y = rr$ratio,
-                            #As explained, bad practice
-                            fill = Legend)) + 
-        xlab("Lung Partitions") + 
-        ylab("Ratio") + 
-        ggtitle(unlist(strsplit(filename, "[.]"))[1]) + 
-        geom_bar(stat="identity", color="black", position = position_dodge()) +
-        scale_fill_manual(values=c('#999999','#E69F00')) + 
-        theme_minimal()
-      
-      ggsave(filename = paste0("Barplot_", filename, ".png"), device = "png")
-    }
-    save_barplot(filename = filename)
-    
-    # if(window_graphic){
-    #   windows(width = 1920, height = 1080)
-    # }
-    
-    # barplot(ratio_mat, beside = TRUE,
-    #         main = filename, 
-    #         col=colors()[c(23,89)],
-    #         xlab = "Data_Label",
-    #         ylab = "Ratio")
-    
-  }
-  
-}
+
 
 wd = get_directory()
 setwd(wd)
