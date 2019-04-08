@@ -43,11 +43,12 @@ compare_ratio = function(file_list){
     particle_total_volume_ratio = particle_count/total_particle_count
     volume_total_volume_ratio = data$volume/total_volume
     
+    data_length = length(data$volume)
+    critical_ratio = 1/data_length
+    
     #Do a linear regression and return the coef
     l = lm(particle_total_volume_ratio ~ volume_total_volume_ratio)$coefficients
-    print(filename)
-    print(l)
-    
+
     # if(window_graphic){
     #   windows(width = 1920, height = 1080)
     # }
@@ -59,17 +60,18 @@ compare_ratio = function(file_list){
     #Plot using ggplot
     
     
-    ggplot(data = ratio_data_frame, aes(x = ratio_data_frame$particle_total_volume_ratio,
-                                        y = volume_total_volume_ratio)) +
-      xlab("particle total volume ratio") + 
-      ylab("volume total volume ratio") + 
+    ggplot(data = ratio_data_frame, aes(y = ratio_data_frame$particle_total_volume_ratio,
+                                        x = volume_total_volume_ratio)) +
+      ylab("particle total volume ratio") + 
+      xlab("volume total volume ratio") + 
       
-      ggtitle(filename, subtitle = "Blue: Linear Regression Line;  Black: Line Y = X") +
+      ggtitle(filename, subtitle = "Blue: Linear Regression Line;  Black: Line Y = X; Orange: Critical Ratio") +
       geom_point() + 
       stat_summary(fun.data=mean_cl_normal) + 
       geom_smooth(method='lm',formula= y~x ) + 
       geom_abline(intercept = 0, slope = 1, color="black", 
                   linetype="dashed", size = 1) + 
+      geom_hline(yintercept = critical_ratio, color = "coral", linetype="dashed") + 
       theme_minimal()
     
     ggsave(filename = paste0(filename, ".png"), device = "png")
