@@ -67,7 +67,7 @@ compare_ratio = function(file_list){
       
       ggtitle(filename, subtitle = "Blue: Linear Regression Line;  Black: Line Y = X; Orange: Critical Ratio") +
       geom_point() + 
-      stat_summary(fun.data=mean_cl_normal) + 
+      #stat_summary(fun.data=mean_cl_normal) + 
       geom_smooth(method='lm',formula= y~x ) + 
       geom_abline(intercept = 0, slope = 1, color="black", 
                   linetype="dashed", size = 1) + 
