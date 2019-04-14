@@ -1,0 +1,98 @@
+---
+title: "M06 Airway and Aerosol Deposition 3D"
+output: html_document
+---
+
+```{r setup, echo=FALSE}
+library(knitr)
+library(rgl)
+library(readxl)
+
+knit_hooks$set(webgl = hook_webgl)
+
+plot_inclusive_depo = function(airway_file,
+                               lobe_file,
+                               sublob_file,
+                               acini_file){
+  
+  #Read the data
+  airway_data = read.csv(file = airway_file)
+  lobe_depo = read.csv(lobe_file)
+  sublobe_depo = read.csv(sublob_file)
+  acini_depo = read.csv(acini_file)
+  
+  data_dimension = dim(airway_data)[1]
+  
+  for(i in 1:data_dimension){
+    
+    data = airway_data[i,]
+    airway = cylinder3d(
+      center = cbind(c(data$centroidX + 0.5 * data$length * data$directionX,
+                       data$centroidX - 0.5 * data$length * data$directionX),
+                     c(data$centroidY + 0.5 * data$length * data$directionY,
+                       data$centroidY - 0.5 * data$length * data$directionY),
+                     c(data$centroidZ + 0.5 * data$length * data$directionZ,
+                       data$centroidZ - 0.5 * data$length * data$directionZ)),
+      radius = data$radius
+        
+      )
+      shade3d(addNormals(subdivision3d(airway, depth = 0)), col = rainbow(data_dimension)[i])
+      
+    }
+    
+    ############### Deposition 
+    
+    for(j in 1:dim(lobe_depo)[1]){
+
+      data = acini_depo[j,]
+      rgl.spheres(x = data$centroidX,
+                  y = data$centroidY,
+                  z = data$centroidZ,
+                  r = data$volume * data$mean / 2000,
+                  color = "green")
+
+    }
+    
+    for(j in 1:dim(sublobe_depo)[1]){
+
+      data = acini_depo[j,]
+      rgl.spheres(x = data$centroidX,
+                  y = data$centroidY,
+                  z = data$centroidZ,
+                  r = data$volume * data$mean / 2000,
+                  color = "blue")
+
+    }
+    
+    for(j in 1:dim(acini_depo)[1]){
+
+      data = acini_depo[j,]
+      rgl.spheres(x = data$centroidX,
+                  y = data$centroidY,
+                  z = data$centroidZ,
+                  r = data$volume * data$mean / 2000,
+                  color = "grey")
+
+    }
+
+  
+}
+
+
+```
+
+```{r specs, echo=FALSE}
+
+sample_spec = read_excel(list.files(pattern = "xlsx"))
+kable(sample_spec[6,], caption = "Sample Specs")
+
+```
+
+Full Airway color model with deposition
+
+```{r 3d_plot, webgl=TRUE, echo = FALSE}
+
+fl = list.files(pattern = "m06")
+plot_inclusive_depo(airway_file = fl[1], lobe_file = fl[2], sublob_file = fl[4], acini_file = fl[3])
+
+```
