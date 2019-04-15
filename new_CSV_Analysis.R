@@ -58,8 +58,6 @@ compare_ratio = function(file_list){
                                   volume_total_volume_ratio)
     
     #Plot using ggplot
-    
-    
     ggplot(data = ratio_data_frame, aes(y = ratio_data_frame$particle_total_volume_ratio,
                                         x = volume_total_volume_ratio)) +
       ylab("particle total volume ratio") + 
@@ -68,7 +66,8 @@ compare_ratio = function(file_list){
       ggtitle(filename, subtitle = "Blue: Linear Regression Line;  Black: Line Y = X; Orange: Critical Ratio") +
       geom_point() + 
       #stat_summary(fun.data=mean_cl_normal) + 
-      geom_smooth(method='lm',formula= y~x ) + 
+      geom_smooth(method='lm',formula = y~x ) + 
+      #Add Equility Line
       geom_abline(intercept = 0, slope = 1, color="black", 
                   linetype="dashed", size = 1) + 
       geom_hline(yintercept = critical_ratio, color = "coral", linetype="dashed") + 
