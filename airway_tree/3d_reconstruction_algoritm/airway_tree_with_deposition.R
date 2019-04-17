@@ -54,9 +54,15 @@ for(i in 1:data_dimension){
 
 }
 
-############### Deposition 
+############### Deposition ###############
 
-color_gradient = heat.colors(ceiling(max(lobe_depo$volume * lobe_depo$mean)))
+## This normalization process can only be done (well, sort of) to the lober level
+# The numbers should be normalized based on percentage
+lobe_depo_percentage = round((lobe_depo$volume * lobe_depo$mean) / sum(lobe_depo$volume * lobe_depo$mean) * 100, 0)
+# Sometimes when rounded, the value can be 101 instead of 100
+color_gradient = heat.colors(sum(lobe_depo_percentage))
+
+# color_gradient = heat.colors(ceiling(max(lobe_depo$volume * lobe_depo$mean))) #What it originally looks like
 for(j in 1:dim(lobe_depo)[1]){
 
   data = lobe_depo[j,]
@@ -64,7 +70,8 @@ for(j in 1:dim(lobe_depo)[1]){
               y = data$centroidY,
               z = data$centroidZ,
               r = 1.5,
-              color = color_gradient[round(lobe_depo$volume[j] * lobe_depo$mean[j])])
+              color = color_gradient[lobe_depo_percentage[j]])
+  # color = color_gradient[round(lobe_depo$volume[j] * lobe_depo$mean[j])]) #What it originally looks like
 
 }
 

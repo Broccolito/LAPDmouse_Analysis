@@ -64,7 +64,7 @@ plot_depo = function(airway_file,
     
   }
   
-  ############### Deposition 
+  ############### Deposition ###############
   
   color_gradient = heat.colors(ceiling(max(lobe_depo$volume * lobe_depo$mean)))
   for(j in 1:dim(lobe_depo)[1]){
