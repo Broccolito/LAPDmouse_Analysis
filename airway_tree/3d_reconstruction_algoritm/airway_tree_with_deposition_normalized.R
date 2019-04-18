@@ -2,6 +2,11 @@ if(!require("rgl")){
   install.packages("rgl")
   library("rgl")
 }
+if(!require("viridisLite")){
+  install.packages("viridisLite")
+  library("viridisLite")
+}
+
 
 get_directory = function(){
   args <- commandArgs(trailingOnly = FALSE)
@@ -56,8 +61,11 @@ for(i in 1:data_dimension){
 
 ############### Deposition ###############
 
-#Initialize color gradient
-color_gradient = heat.colors(100)
+#Initialize color gradient 
+#Rainbow
+#Cividis
+#Heat map
+color_gradient = cividis(100)
 
 ## This normalization process can only be done (well, sort of) to the lober level
 # The numbers should be normalized based on percentage
@@ -78,45 +86,49 @@ for(j in 1:dim(lobe_depo)[1]){
 
 }
 
-sublobe_depo_percentage = round((sublobe_depo$volume * sublobe_depo$mean) / 
-                                  sum(sublobe_depo$volume * sublobe_depo$mean) * 100, 3)
+############### Currently not working on the sublobe ###############
+############### Currently not working on the acini ###############
 
-#Normalize the colorscale by the compartment count
-sublobe_depo_percentage = (dim(sublobe_depo)[1] / dim(lobe_depo)[1]) * sublobe_depo_percentage + 1
-sublobe_depo_percentage[sublobe_depo_percentage >= 100] = 100
-sublobe_depo_percentage = round(sublobe_depo_percentage, 0)
 
-# color_gradient = heat.colors(ceiling(max(sublobe_depo$volume * sublobe_depo$mean))) #Original
-for(j in 1:dim(sublobe_depo)[1]){
+# sublobe_depo_percentage = round((sublobe_depo$volume * sublobe_depo$mean) / 
+#                                   sum(sublobe_depo$volume * sublobe_depo$mean) * 100, 3)
+# 
+# #Normalize the colorscale by the compartment count
+# sublobe_depo_percentage = (dim(sublobe_depo)[1] / dim(lobe_depo)[1]) * sublobe_depo_percentage + 1
+# sublobe_depo_percentage[sublobe_depo_percentage >= 100] = 100
+# sublobe_depo_percentage = round(sublobe_depo_percentage, 0)
 
-  data = sublobe_depo[j,]
-  rgl.spheres(x = data$centroidX,
-              y = data$centroidY,
-              z = data$centroidZ,
-              r = 0.5,
-              color = color_gradient[sublobe_depo_percentage[j]])
-
-}
-
-acini_depo_percentage = round((acini_depo$volume * acini_depo$mean) / 
-                                  sum(acini_depo$volume * acini_depo$mean) * 100, 4)
-
-#Normalize the colorscale by the compartment count
-acini_depo_percentage = (dim(acini_depo)[1] / dim(lobe_depo)[1]) * acini_depo_percentage + 1
-acini_depo_percentage[acini_depo_percentage >= 100] = 100
-acini_depo_percentage = round(acini_depo_percentage, 0)
-
-# color_gradient = heat.colors(ceiling(max(acini_depo$volume * acini_depo$mean))) #Original
-for(j in 1:dim(acini_depo)[1]){
-
-  data = acini_depo[j,]
-  rgl.spheres(x = data$centroidX,
-              y = data$centroidY,
-              z = data$centroidZ,
-              r = 0.15,
-              color = color_gradient[acini_depo_percentage[j]])
-
-}
+# # color_gradient = heat.colors(ceiling(max(sublobe_depo$volume * sublobe_depo$mean))) #Original
+# for(j in 1:dim(sublobe_depo)[1]){
+# 
+#   data = sublobe_depo[j,]
+#   rgl.spheres(x = data$centroidX,
+#               y = data$centroidY,
+#               z = data$centroidZ,
+#               r = 0.5,
+#               color = color_gradient[sublobe_depo_percentage[j]])
+# 
+# }
+# 
+# acini_depo_percentage = round((acini_depo$volume * acini_depo$mean) / 
+#                                   sum(acini_depo$volume * acini_depo$mean) * 100, 4)
+# 
+# #Normalize the colorscale by the compartment count
+# acini_depo_percentage = (dim(acini_depo)[1] / dim(lobe_depo)[1]) * acini_depo_percentage + 1
+# acini_depo_percentage[acini_depo_percentage >= 100] = 100
+# acini_depo_percentage = round(acini_depo_percentage, 0)
+# 
+# # color_gradient = heat.colors(ceiling(max(acini_depo$volume * acini_depo$mean))) #Original
+# for(j in 1:dim(acini_depo)[1]){
+# 
+#   data = acini_depo[j,]
+#   rgl.spheres(x = data$centroidX,
+#               y = data$centroidY,
+#               z = data$centroidZ,
+#               r = 0.15,
+#               color = color_gradient[acini_depo_percentage[j]])
+# 
+# }
 
 
 
