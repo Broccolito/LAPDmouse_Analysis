@@ -66,7 +66,16 @@ plot_depo = function(airway_file,
   
   ############### Deposition ###############
   
-  color_gradient = heat.colors(ceiling(max(lobe_depo$volume * lobe_depo$mean)))
+  #Initialize color gradient
+  color_gradient = heat.colors(100)
+  
+  ## This normalization process can only be done (well, sort of) to the lober level
+  # The numbers should be normalized based on percentage
+  # Add 1 at the bottom because index number starts from 1 in R
+  lobe_depo_percentage = round((lobe_depo$volume * lobe_depo$mean) / sum(lobe_depo$volume * lobe_depo$mean) * 100, 0) + 1
+  lobe_depo_percentage[lobe_depo_percentage >= 100] = 100 #Cape the maximum to 100
+  
+  # color_gradient = heat.colors(ceiling(max(lobe_depo$volume * lobe_depo$mean))) #What it originally looks like
   for(j in 1:dim(lobe_depo)[1]){
     
     data = lobe_depo[j,]
@@ -74,11 +83,20 @@ plot_depo = function(airway_file,
                 y = data$centroidY,
                 z = data$centroidZ,
                 r = 1.5,
-                color = color_gradient[round(lobe_depo$volume[j] * lobe_depo$mean[j])])
+                color = color_gradient[lobe_depo_percentage[j]])
+    # color = color_gradient[round(lobe_depo$volume[j] * lobe_depo$mean[j])]) #What it originally looks like
     
   }
   
-  color_gradient = heat.colors(ceiling(max(sublobe_depo$volume * sublobe_depo$mean)))
+  sublobe_depo_percentage = round((sublobe_depo$volume * sublobe_depo$mean) / 
+                                    sum(sublobe_depo$volume * sublobe_depo$mean) * 100, 3)
+  
+  #Normalize the colorscale by the compartment count
+  sublobe_depo_percentage = (dim(sublobe_depo)[1] / dim(lobe_depo)[1]) * sublobe_depo_percentage + 1
+  sublobe_depo_percentage[sublobe_depo_percentage >= 100] = 100
+  sublobe_depo_percentage = round(sublobe_depo_percentage, 0)
+  
+  # color_gradient = heat.colors(ceiling(max(sublobe_depo$volume * sublobe_depo$mean))) #Original
   for(j in 1:dim(sublobe_depo)[1]){
     
     data = sublobe_depo[j,]
@@ -86,11 +104,19 @@ plot_depo = function(airway_file,
                 y = data$centroidY,
                 z = data$centroidZ,
                 r = 0.5,
-                color = color_gradient[round(sublobe_depo$volume[j] * sublobe_depo$mean[j])])
+                color = color_gradient[sublobe_depo_percentage[j]])
     
   }
   
-  color_gradient = heat.colors(ceiling(max(acini_depo$volume * acini_depo$mean)))
+  acini_depo_percentage = round((acini_depo$volume * acini_depo$mean) / 
+                                  sum(acini_depo$volume * acini_depo$mean) * 100, 4)
+  
+  #Normalize the colorscale by the compartment count
+  acini_depo_percentage = (dim(acini_depo)[1] / dim(lobe_depo)[1]) * acini_depo_percentage + 1
+  acini_depo_percentage[acini_depo_percentage >= 100] = 100
+  acini_depo_percentage = round(acini_depo_percentage, 0)
+  
+  # color_gradient = heat.colors(ceiling(max(acini_depo$volume * acini_depo$mean))) #Original
   for(j in 1:dim(acini_depo)[1]){
     
     data = acini_depo[j,]
@@ -98,7 +124,7 @@ plot_depo = function(airway_file,
                 y = data$centroidY,
                 z = data$centroidZ,
                 r = 0.15,
-                color = color_gradient[round(acini_depo$volume[j] * acini_depo$mean[j])])
+                color = color_gradient[acini_depo_percentage[j]])
     
   }
   

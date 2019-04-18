@@ -37,7 +37,7 @@ try({
 
 open3d()
 for(i in 1:data_dimension){
-
+  
   data = airway_data[i,]
   airway = cylinder3d(
     center = cbind(c(data$centroidX + 0.5 * data$length * data$directionX,
@@ -47,58 +47,51 @@ for(i in 1:data_dimension){
                    c(data$centroidZ + 0.5 * data$length * data$directionZ,
                      data$centroidZ - 0.5 * data$length * data$directionZ)),
     radius = data$radius
-
+    
   )
   #shade3d(addNormals(subdivision3d(airway, depth = 0)), col = rainbow(data_dimension)[i])
   shade3d(addNormals(subdivision3d(airway, depth = 0)), col = "grey")
-
+  
 }
 
 ############### Deposition ###############
 
-## This normalization process can only be done (well, sort of) to the lober level
-# The numbers should be normalized based on percentage
-lobe_depo_percentage = round((lobe_depo$volume * lobe_depo$mean) / sum(lobe_depo$volume * lobe_depo$mean) * 100, 0)
-# Sometimes when rounded, the value can be 101 instead of 100
-color_gradient = heat.colors(sum(lobe_depo_percentage))
-
-# color_gradient = heat.colors(ceiling(max(lobe_depo$volume * lobe_depo$mean))) #What it originally looks like
+color_gradient = heat.colors(ceiling(max(lobe_depo$volume * lobe_depo$mean))) #What it originally looks like
 for(j in 1:dim(lobe_depo)[1]){
-
+  
   data = lobe_depo[j,]
   rgl.spheres(x = data$centroidX,
               y = data$centroidY,
               z = data$centroidZ,
               r = 1.5,
-              color = color_gradient[lobe_depo_percentage[j]])
-  # color = color_gradient[round(lobe_depo$volume[j] * lobe_depo$mean[j])]) #What it originally looks like
-
+              #What it originally looks like
+              color = color_gradient[round(lobe_depo$volume[j] * lobe_depo$mean[j])]) 
+  
 }
 
 color_gradient = heat.colors(ceiling(max(sublobe_depo$volume * sublobe_depo$mean)))
 for(j in 1:dim(sublobe_depo)[1]){
-
+  
   data = sublobe_depo[j,]
   rgl.spheres(x = data$centroidX,
               y = data$centroidY,
               z = data$centroidZ,
               r = 0.5,
               color = color_gradient[round(sublobe_depo$volume[j] * sublobe_depo$mean[j])])
-
+  
 }
 
 color_gradient = heat.colors(ceiling(max(acini_depo$volume * acini_depo$mean)))
 for(j in 1:dim(acini_depo)[1]){
-
+  
   data = acini_depo[j,]
   rgl.spheres(x = data$centroidX,
               y = data$centroidY,
               z = data$centroidZ,
               r = 0.15,
               color = color_gradient[round(acini_depo$volume[j] * acini_depo$mean[j])])
-
+  
 }
-
 
 
 
