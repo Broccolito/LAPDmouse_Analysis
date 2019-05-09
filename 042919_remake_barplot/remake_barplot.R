@@ -52,6 +52,10 @@ for(data_folder_head in data_folder_heads){
   pp_ratio = round((data$mean * data$volume)/total_particle,3)
   
   ratio = c(vv_ratio, pp_ratio)
+  
+  #Assign the ratio values to the global env
+  # assign(paste0(data_folder_head, "_ratio"), ratio)
+  
   Legend = c(rep("Volume Ratio", length(vv_ratio)),rep("Particle Ratio", length(pp_ratio)))
   
   ratio_data = data.frame(data$label,ratio, Legend)
@@ -70,4 +74,3 @@ for(data_folder_head in data_folder_heads){
   cat(paste0("Plot for ", data_folder_head, " saved..\n"))
   
 }
-
