@@ -16,7 +16,7 @@ Install Rstudio:
 
 ### Prerequisites
 
-Packages in R that you need prior to working this project
+Packages in R that you need prior to working on this project
 
 ```r
 
