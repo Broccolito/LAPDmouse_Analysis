@@ -84,8 +84,8 @@ for(ratio in ratio_list){
 ratio_mat = as.data.frame(ratio_mat)
 vv_ratio_mat = ratio_mat[1:5]
 pp_ratio_mat = ratio_mat[6:10]
-kable(vv_ratio_mat)
-kable(pp_ratio_mat)
+# kable(vv_ratio_mat)
+# kable(pp_ratio_mat)
 
 ratio_names = unlist(lapply(strsplit(ratio_list, "[_]"), `[[`, 1))
 
@@ -138,3 +138,36 @@ par(new = FALSE)
 windows()
 plot(1:18, 1:18, main = "legend color", cex = 3, pch = 16, col = rainbow(18))
 axis(1, at = 1:18, labels = seq(1,18,1))
+
+#Using ggplot2
+kable(vv_ratio_mat)
+kable(pp_ratio_mat)
+vv_gg_mat = t(vv_ratio_mat)
+pp_gg_mat = t(pp_ratio_mat)
+
+vv_gg_mat = cbind.data.frame(label = data$label, vv_gg_mat)
+pp_gg_mat = cbind.data.frame(label = data$label, pp_gg_mat)
+
+graphics.off()
+windows()
+ggplot(data = vv_gg_mat) + 
+  geom_point(aes(x = label, y = m1)) + 
+  geom_point(aes(x = label, y = m2)) + 
+  geom_point(aes(x = label, y = m3)) + 
+  geom_point(aes(x = label, y = m4)) + 
+  geom_point(aes(x = label, y = m5)) + 
+  geom_point(aes(x = label, y = m6)) + 
+  geom_point(aes(x = label, y = m7)) + 
+  geom_point(aes(x = label, y = m8)) + 
+  geom_point(aes(x = label, y = m9)) + 
+  geom_point(aes(x = label, y = m10)) + 
+  geom_point(aes(x = label, y = m11)) + 
+  geom_point(aes(x = label, y = m12)) + 
+  geom_point(aes(x = label, y = m13)) + 
+  geom_point(aes(x = label, y = m14)) + 
+  geom_point(aes(x = label, y = m15)) + 
+  geom_point(aes(x = label, y = m16)) + 
+  geom_point(aes(x = label, y = m17)) + 
+  geom_point(aes(x = label, y = m18)) 
+
+
