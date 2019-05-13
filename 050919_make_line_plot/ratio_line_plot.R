@@ -152,22 +152,22 @@ graphics.off()
 windows()
 ggplot(data = vv_gg_mat) + 
   geom_point(aes(x = label, y = m1)) + 
-  geom_point(aes(x = label, y = m2)) + 
-  geom_point(aes(x = label, y = m3)) + 
-  geom_point(aes(x = label, y = m4)) + 
-  geom_point(aes(x = label, y = m5)) + 
-  geom_point(aes(x = label, y = m6)) + 
-  geom_point(aes(x = label, y = m7)) + 
-  geom_point(aes(x = label, y = m8)) + 
-  geom_point(aes(x = label, y = m9)) + 
-  geom_point(aes(x = label, y = m10)) + 
-  geom_point(aes(x = label, y = m11)) + 
-  geom_point(aes(x = label, y = m12)) + 
-  geom_point(aes(x = label, y = m13)) + 
-  geom_point(aes(x = label, y = m14)) + 
-  geom_point(aes(x = label, y = m15)) + 
-  geom_point(aes(x = label, y = m16)) + 
-  geom_point(aes(x = label, y = m17)) + 
-  geom_point(aes(x = label, y = m18)) 
+  geom_point(aes(x = label, y = m2)) +
+  geom_point(aes(x = label, y = m3)) +
+  geom_point(aes(x = label, y = m4)) +
+  geom_point(aes(x = label, y = m5)) +
+  geom_point(aes(x = label, y = m6)) +
+  geom_point(aes(x = label, y = m7)) +
+  geom_point(aes(x = label, y = m8)) +
+  geom_point(aes(x = label, y = m9)) +
+  geom_point(aes(x = label, y = m10)) +
+  geom_point(aes(x = label, y = m11)) +
+  geom_point(aes(x = label, y = m12)) +
+  geom_point(aes(x = label, y = m13)) +
+  geom_point(aes(x = label, y = m14)) +
+  geom_point(aes(x = label, y = m15)) +
+  geom_point(aes(x = label, y = m16)) +
+  geom_point(aes(x = label, y = m17)) +
+  geom_point(aes(x = label, y = m18))
 
 
