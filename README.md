@@ -27,8 +27,8 @@ library(listviewer)
 
 #If some of the packages are not installed yet, install using:
 if(!require("package_name")){
-	install.packages("package_name")
-	library("package_name")
+  install.packages("package_name")
+  library("package_name")
 }
 ```
 
