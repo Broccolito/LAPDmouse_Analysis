@@ -46,9 +46,13 @@ for(data_folder_head in data_folder_heads){
   data = data[,1:8]
   
   total_volume = sum(data$volume)
+  
+  
   vv_ratio = round(data$volume/total_volume,3)
   
   total_particle = sum(data$mean * data$volume)
+  
+  #The fractional distribution of particles
   pp_ratio = round((data$mean * data$volume)/total_particle,3)
   
   ratio = c(vv_ratio, pp_ratio)
