@@ -19,7 +19,6 @@ Install Rstudio:
 Packages in R that you need prior to working on this project
 
 ```r
-
 library(ggplot2)
 library(Hmisc)
 library(knitr)
@@ -31,7 +30,6 @@ if(!require("package_name")){
 	install.packages("package_name")
 	library("package_name")
 }
-
 ```
 
 ## Built With
@@ -54,3 +52,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
+[Chantal Darquenne Laboratory](https://medschool.ucsd.edu/som/medicine/divisions/physiology/research/labs/darquenne/)
