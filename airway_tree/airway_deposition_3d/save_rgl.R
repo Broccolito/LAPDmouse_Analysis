@@ -26,7 +26,8 @@ setwd(wd)
 # file_pat = c("m01")
 
 file_pat = c("m01", "m02", "m03", "m04", "m05", "m06", "m07", "m08", "m09",
-             "m10", "m11", "m12", "m13", "m14", "m15", "m16", "m17", "m18")
+             "m10", "m11", "m12", "m13", "m14", "m15", "m16", "m17", "m18",
+             "m19", "m20", "m21", "m22", "m23", "m24")
 
 plot_depo = function(airway_file,
                      lobe_file,
