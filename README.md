@@ -1,6 +1,8 @@
 # lung_particle_deposition_analysis
 This script provides a general interface and fundamental functions to process the lung particle deposition data in CSV format.
 
+##### Database hosted on: https://lapdmouse.iibi.uiowa.edu/
+
 ## Getting Started
 
 In order to work on this project, you should have R on your computer and Rstudio, as a powerful IDE, is strongly recommended.
