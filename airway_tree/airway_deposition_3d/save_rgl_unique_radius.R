@@ -27,7 +27,8 @@ setwd(wd)
 
 file_pat = c("m01", "m02", "m03", "m04", "m05", "m06", "m07", "m08", "m09",
              "m10", "m11", "m12", "m13", "m14", "m15", "m16", "m17", "m18",
-             "m19", "m20", "m21", "m22", "m23", "m24")
+             "m19", "m20", "m21", "m22", "m23", "m24", "m25", "m26", "m27",
+             "m28", "m29", "m30", "m31", "m32", "m33", "m34")
 
 plot_depo = function(airway_file,
                      lobe_file,
@@ -131,13 +132,17 @@ plot_depo = function(airway_file,
   
 }
 
+if(!file.exists("new_plots")){
+  dir.create("new_plots")
+}
+
 for(fp in file_pat){
   
   fl = list.files(pattern = fp)
   plot_depo(airway_file = fl[1], lobe_file = fl[2], sublob_file = fl[4], acini_file = fl[3])
   
   # This writes a copy into temporary directory 'webGL', and then displays it
-  filename <- writeWebGL(dir = file.path(tempdir(), paste0(fp, "_plot")), 
+  filename <- writeWebGL(dir = file.path(paste0(getwd(), "/new_plots"), paste0(fp, "_plot")), 
                          width = 1000, reuse = TRUE)
   
   # Display the "reuse" attribute
