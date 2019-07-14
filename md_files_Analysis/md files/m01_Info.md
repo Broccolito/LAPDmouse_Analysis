@@ -1,9 +1,5 @@
 # m01
 
-[Go to data folder](https://drive.google.com/open?id=0B8oknMRvtleaMXhmVklFcFd2N1U)
-
-![Screenshot showing aerosol deposition](https://drive.google.com/uc?export=download&amp;id=0B8oknMRvtleadEppeEsxUE1aME0 =400x*)
-
 ## Mouse Physiologic Parameters
 
   * Gender: Male
@@ -11,7 +7,7 @@
   * Weight (g): unknown
   * Vendor: Charles Rivers
   * Physical abnormalities: none
-  * Protocol (link XXX)
+  * Protocol (https://lapdmouse.iibi.uiowa.edu/AnimalModel/)
 
 ## Aerosol Dosing
 
@@ -59,21 +55,21 @@
 ## Compartment Sizes and Aerosol Deposition
 
   * Lung volume: 1154.35 (mm^3)
-  * Total aerosol deposition: 181665.91
 
 Compartments | Count | Volume (mm^3)
 ------------ | ----- | -------------
+Lung         | 1 | 1154.35
 Lobes        | 5 | 230.87±103.71
 Sublobes     | 56 | 19.99±21.32
 Near acini   | 414 | 2.63±1.50
 
-Lobe      | Volume (mm^3) | Aerosol deposition density
+Lobe      | Volume (mm^3) | Average aerosol deposition
 --------- | ------------- | ----------------------
-left | 389.46 | 157.01±158.49
-cranial | 193.90 | 174.35±212.18
-middle | 142.97 | 134.33±127.26
-caudal | 311.40 | 162.12±187.14
-accessory | 116.63 | 145.92±134.79
+left | 389.46 | 1.19±1.52
+cranial | 193.90 | 1.33±2.22
+middle | 142.97 | 1.02±1.21
+caudal | 311.40 | 1.23±1.84
+accessory | 116.63 | 1.11±1.31
 
 ## Additional Notes
 
