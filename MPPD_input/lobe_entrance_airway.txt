@@ -1,0 +1,39 @@
+B6C3F1:
+
+[1] "Trachea: 1"
+[1] "LMB: 2"
+[1] "RMB: 3"
+[1] "CrRMB: 6"
+[1] "MiRMB: 14"
+[1] "AcRMB: 30"
+[1] "CaRMB: 31"
+
+CD-1:
+
+[1] "Trachea: 1"
+[1] "LMB: 2"
+[1] "RMB: 3"
+[1] "CrRMB: 6"
+[1] "MiRMB: 14"
+[1] "AcRMB: 30"
+[1] "CaRMB: 31"
+
+BALB/c:
+
+[1] "Trachea: 1"
+[1] "RMB: 2"
+[1] "LMB: 3"
+[1] "CrRMB: 4"
+[1] "AcRMB: 11"
+[1] "MiRMB: 20"
+[1] "CaRMB: 21"
+
+C57BL/6:
+
+[1] "Trachea: 1"
+[1] "LMB: 2"
+[1] "RMB: 3"
+[1] "CrRMB: 6"
+[1] "MiRMB: 14"
+[1] "AcRMB: 30"
+[1] "CaRMB: 31"

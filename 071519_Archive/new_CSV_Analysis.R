@@ -1,0 +1,205 @@
+rm(list = ls())
+graphics.off()
+
+library(ggplot2)
+library(Hmisc)
+
+get_directory = function(){
+  args <- commandArgs(trailingOnly = FALSE)
+  file <- "--file="
+  rstudio <- "RStudio"
+  
+  match <- grep(rstudio, args)
+  if(length(match) > 0){
+    return(dirname(rstudioapi::getSourceEditorContext()$path))
+  }else{
+    match <- grep(file, args)
+    if (length(match) > 0) {
+      return(dirname(normalizePath(sub(file, "", args[match]))))
+    }else{
+      return(dirname(normalizePath(sys.frames()[[1]]$ofile)))
+    }
+  }
+}
+
+getinto = function(filename){
+  if(!dir.exists(filename)){
+    print("The file is not found...")
+    stop("Wrong directory...")
+  }else{
+    setwd(paste(getwd(),"/",filename,sep = ""))
+  }
+}
+
+compare_ratio = function(file_list){
+  for(filename in file_list){
+    filename = unlist(strsplit(filename, "[.]"))[1]
+    
+    data = read.csv(paste0(filename, ".csv"))
+    
+    total_volume = sum(data$volume)
+    particle_count = data$volume * data$mean
+    total_particle_count = sum(particle_count)
+    particle_total_volume_ratio = particle_count/total_particle_count
+    volume_total_volume_ratio = data$volume/total_volume
+    
+    data_length = length(data$volume)
+    critical_ratio = 1/data_length
+    
+    #Do a linear regression and return the coef
+    l = lm(particle_total_volume_ratio ~ volume_total_volume_ratio)$coefficients
+
+    # if(window_graphic){
+    #   windows(width = 1920, height = 1080)
+    # }
+    
+    #Convert to data frame
+    ratio_data_frame = data.frame(particle_total_volume_ratio,
+                                  volume_total_volume_ratio)
+    
+    #Plot using ggplot
+    ggplot(data = ratio_data_frame, aes(y = ratio_data_frame$particle_total_volume_ratio,
+                                        x = volume_total_volume_ratio)) +
+      ylab("particle total volume ratio") + 
+      xlab("volume total volume ratio") + 
+      
+      ggtitle(filename, subtitle = "Blue: Linear Regression Line;  Black: Line Y = X; Orange: Critical Ratio") +
+      geom_point() + 
+      #stat_summary(fun.data=mean_cl_normal) + 
+      geom_smooth(method='lm',formula = y~x ) + 
+      #Add Equility Line
+      geom_abline(intercept = 0, slope = 1, color="black", 
+                  linetype="dashed", size = 1) + 
+      geom_hline(yintercept = critical_ratio, color = "coral", linetype="dashed") + 
+      theme_minimal()
+    
+    ggsave(filename = paste0(filename, ".png"), device = "png")
+    Sys.sleep(1)
+    
+  }
+}
+
+make_barplot = function(file_list){
+  
+  for(filename in file_list){
+    
+    save_barplot = function(filename){
+      data = read.csv(filename)
+      
+      total_volume = sum(data$volume)
+      particle_count = data$volume * data$mean
+      total_particle_count = sum(particle_count)
+      particle_total_volume_ratio = particle_count/total_particle_count
+      volume_total_volume_ratio = data$volume/total_volume
+      
+      ratio_mat = as.matrix(cbind(particle_total_volume_ratio, volume_total_volume_ratio))
+      ratio_mat = t(ratio_mat[nrow(ratio_mat):1,])
+      index = 1:dim(ratio_mat)[2]
+      ratio_mat = rbind(index, ratio_mat)
+      #colnames(ratio_mat)= c(data$label)
+      colnames(ratio_mat) = c(paste0("l",data$label))
+      
+      ratio_data_frame = as.data.frame(t(ratio_mat))
+      
+      rr = data.frame(index = rep(ratio_data_frame$index, 2),
+                      ratio = c(ratio_data_frame$particle_total_volume_ratio,
+                                ratio_data_frame$volume_total_volume_ratio),
+                      #This is a very bad practice because "legend" is one of the
+                      #Args of data.frame function
+                      Legend = c(rep("particle_total_volume_ratio", dim(ratio_data_frame)[1]),
+                                 rep("volume_total_volume_ratio", dim(ratio_data_frame)[1]))
+      )
+      
+      ggplot(data = rr, aes(x = rr$index,
+                            y = rr$ratio,
+                            #As explained, bad practice
+                            fill = Legend)) + 
+        xlab("Lung Partitions") + 
+        ylab("Ratio") + 
+        ggtitle(unlist(strsplit(filename, "[.]"))[1]) + 
+        geom_bar(stat="identity", color="black", position = position_dodge()) +
+        scale_fill_manual(values=c('#999999','#E69F00')) + 
+        theme_minimal()
+      
+      ggsave(filename = paste0("Barplot_", filename, ".png"), device = "png")
+    }
+    save_barplot(filename = filename)
+    
+    # if(window_graphic){
+    #   windows(width = 1920, height = 1080)
+    # }
+    
+    # barplot(ratio_mat, beside = TRUE,
+    #         main = filename, 
+    #         col=colors()[c(23,89)],
+    #         xlab = "Data_Label",
+    #         ylab = "Ratio")
+    
+  }
+  
+}
+
+wd = get_directory()
+setwd(wd)
+
+#Create a new folder to save graphics
+if(!dir.exists("new_graphics")){
+  dir.create("new_graphics")
+}
+
+graphics_wd = paste0(wd, "/new_graphics")
+wd = paste0(wd, "/CSV_Data")
+setwd(wd)
+
+dir_list = list.files(pattern = "m")
+
+graphics.off()
+
+for(d in dir_list){
+  getinto(d)
+  
+  file_list = list.files(pattern = "Deposition")
+  file_list = file_list[!grepl("Airway", file_list)]
+  #Compare the scatterness of the ratio
+  compare_ratio(file_list = file_list)
+  
+  setwd(wd)
+}
+
+#Scrub out PNG files from the folder and take them to new_graphics
+for(d in dir_list){
+  getinto(d)
+  
+  file.copy(from = list.files(pattern = "png"),
+            to = graphics_wd)
+  file.remove(list.files(pattern = "png"))
+  
+  setwd(wd)
+}
+
+
+for(d in dir_list){
+  getinto(d)
+  
+  file_list = list.files(pattern = "Deposition")
+  file_list = file_list[!grepl("Airway", file_list)]
+  #Compare the scatterness of the ratio
+  make_barplot(file_list = file_list)
+  
+  setwd(wd)
+}
+
+#Scrub out again PNG files from the folder and take them to new_graphics
+for(d in dir_list){
+  getinto(d)
+  
+  file.copy(from = list.files(pattern = "png"),
+            to = graphics_wd)
+  file.remove(list.files(pattern = "png"))
+  
+  setwd(wd)
+}
+
+graphics.off()
+
+cat("Graphics Saved \n")

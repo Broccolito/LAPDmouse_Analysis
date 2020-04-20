@@ -1,0 +1,215 @@
+[1] "m01_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.009861636               1.049308178 
+Saving 7 x 7 in image
+[1] "m01_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+             0.0001750131              0.9275445726 
+Saving 7 x 7 in image
+[1] "m01_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.002220342               1.124339147 
+Saving 7 x 7 in image
+[1] "m10_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.007102601               1.035513005 
+Saving 7 x 7 in image
+[1] "m10_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+             0.0003119871              0.8870606761 
+Saving 7 x 7 in image
+[1] "m10_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.003939235               1.212718700 
+Saving 7 x 7 in image
+[1] "m11_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+               0.01378658                0.93106711 
+Saving 7 x 7 in image
+[1] "m11_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+             0.0001843708              0.9216424162 
+Saving 7 x 7 in image
+[1] "m11_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.002334275               1.126050847 
+Saving 7 x 7 in image
+[1] "m12_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+               0.01775855                0.91120727 
+Saving 7 x 7 in image
+[1] "m12_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+            -0.0000294437              1.0123957976 
+Saving 7 x 7 in image
+[1] "m12_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.003080947               1.172533057 
+Saving 7 x 7 in image
+[1] "m13_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.001894037               1.009470183 
+Saving 7 x 7 in image
+[1] "m13_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+             7.150006e-05              9.711140e-01 
+Saving 7 x 7 in image
+[1] "m13_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.003355782               1.177856421 
+Saving 7 x 7 in image
+[1] "m14_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+              -0.03819321                1.19096603 
+Saving 7 x 7 in image
+[1] "m14_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+             0.0001989118              0.9035277652 
+Saving 7 x 7 in image
+[1] "m14_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.003955461               1.205683973 
+Saving 7 x 7 in image
+[1] "m15_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.006934963               1.034674814 
+Saving 7 x 7 in image
+[1] "m15_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+            -0.0006205659              1.1737584574 
+Saving 7 x 7 in image
+[1] "m15_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.004188727               1.217813797 
+Saving 7 x 7 in image
+[1] "m16_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+               0.06474421                0.67627895 
+Saving 7 x 7 in image
+[1] "m16_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+              0.001220258               0.719340748 
+Saving 7 x 7 in image
+[1] "m16_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+            -0.0009828775              1.0511096276 
+Saving 7 x 7 in image
+[1] "m17_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+              -0.09674567                1.48372836 
+Saving 7 x 7 in image
+[1] "m17_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+              0.001291614               0.674513286 
+Saving 7 x 7 in image
+[1] "m17_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+              -0.00343431                1.18545272 
+Saving 7 x 7 in image
+[1] "m18_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+               0.02802707                0.85986464 
+Saving 7 x 7 in image
+[1] "m18_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+            -0.0001332924              1.0486517094 
+Saving 7 x 7 in image
+[1] "m18_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.003446437               1.189554061 
+Saving 7 x 7 in image
+[1] "m02_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+              0.001137391               0.994313043 
+Saving 7 x 7 in image
+[1] "m02_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+             0.0001671476              0.9338095671 
+Saving 7 x 7 in image
+[1] "m02_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.002210684               1.121587644 
+Saving 7 x 7 in image
+[1] "m03_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+              -0.01228271                1.06141355 
+Saving 7 x 7 in image
+[1] "m03_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+            -3.371745e-05              1.010216e+00 
+Saving 7 x 7 in image
+[1] "m03_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.002585218               1.144772226 
+Saving 7 x 7 in image
+[1] "m04_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+              -0.04815611                1.24078057 
+Saving 7 x 7 in image
+[1] "m04_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+            -1.829421e-05              1.007537e+00 
+Saving 7 x 7 in image
+[1] "m04_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.002092296               1.112983987 
+Saving 7 x 7 in image
+[1] "m05_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+              -0.04878957                1.24394787 
+Saving 7 x 7 in image
+[1] "m05_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+             0.0003110592              0.8553574575 
+Saving 7 x 7 in image
+[1] "m05_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.004181226               1.229967447 
+Saving 7 x 7 in image
+[1] "m06_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+              -0.02282162                1.11410812 
+Saving 7 x 7 in image
+[1] "m06_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+             0.0002315202              0.9106331951 
+Saving 7 x 7 in image
+[1] "m06_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.003562122               1.188792463 
+Saving 7 x 7 in image
+[1] "m07_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+              -0.01790863                1.08954316 
+Saving 7 x 7 in image
+[1] "m07_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+             0.0004455898              0.8253287971 
+Saving 7 x 7 in image
+[1] "m07_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.003137964               1.175725990 
+Saving 7 x 7 in image
+[1] "m08_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+               0.06697735                0.66511325 
+Saving 7 x 7 in image
+[1] "m08_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+             0.0004527901              0.8288453492 
+Saving 7 x 7 in image
+[1] "m08_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.001532277               1.084275217 
+Saving 7 x 7 in image
+[1] "m09_LobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+              0.003746702               0.981266489 
+Saving 7 x 7 in image
+[1] "m09_NearAciniDeposition"
+              (Intercept) volume_total_volume_ratio 
+             0.0002081528              0.9217345545 
+Saving 7 x 7 in image
+[1] "m09_SublobesDeposition"
+              (Intercept) volume_total_volume_ratio 
+             -0.001828951               1.095105439 

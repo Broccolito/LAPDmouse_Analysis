@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{rotating}
+\usepackage[margin=1.5in]{geometry}
+
+\title{latex table}
+\author{Wanjun Gu}
+\date{January 2020}
+
+\begin{document}
+
+The equation from the textbook
+
+\begin{equation}
+    R = AR_02^{-\frac{G}{B}}
+\end{equation}
+
+where $R$ is the radii of airways, $G$ is the corresponded airway generation and $R_0$ is the radius of the airway of the $0^{th}$ generation (trachea) can be obtained by first find $\beta_1$ and $\beta_0$ in 
+
+\begin{equation}
+    log_2R = \beta_1G + \beta_0
+\end{equation}
+
+using OLS fit and then acquire $A$ and $B$ by
+
+\begin{equation}
+    A = \frac{2^{\beta_0}}{R_0}
+\end{equation}
+
+\begin{equation}
+    B = -\frac{1}{\beta_1}
+\end{equation}
+
+
+\end{document}
