@@ -33,7 +33,7 @@ d = read.csv("depo_dist.csv")
 plt1 = ggplot(data = d, aes(x = dis,y = depo)) +
   geom_point(color = "gray") +
   geom_smooth(method = "lm",color = "black",formula = "y~x") +
-  xlab("Distance (Micrometer)") +
+  xlab("Distance (mm)") +
   ylab("Mean Deposition") +
   stat_fit_glance(method = 'lm',
                   method.args = list(formula = "y~x"),
@@ -46,9 +46,10 @@ plt1 = ggplot(data = d, aes(x = dis,y = depo)) +
          height = 12,width = 16)
 
 plt2 = ggplot(data = filter(d,id=="m27"|id=="m08"|id=="m34"), aes(x = dis,y = depo)) + 
-  geom_point(color = "black", size = 1.8) + 
+  geom_point(size = 1.8,
+             color = ifelse(filter(d,id=="m27"|id=="m08"|id=="m34")$depo>=2.329173,"red","black")) + 
   geom_smooth(method = "lm",color = "black",formula = "y~x") + 
-  xlab("Distance (??m)") + 
+  xlab("Distance (mm)") + 
   ylab("Mean Deposition") + 
   # stat_fit_glance(method = 'lm',
   #                 method.args = list(formula = "y~x"),

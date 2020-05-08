@@ -62,7 +62,7 @@ get_distance = function(normal_plane,dx,dy,dz){
   pb = normal_plane$b
   pc = normal_plane$c
   pd = normal_plane$d
-  dis = abs(pa*dx+pb*dy+pc*dz-pd)/(sqrt(pa^2+pb^2+pc^2))
+  dis = -(pa*dx+pb*dy+pc*dz-pd)/(sqrt(pa^2+pb^2+pc^2))
   return(dis)
 }
 
