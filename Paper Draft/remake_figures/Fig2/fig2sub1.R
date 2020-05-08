@@ -24,8 +24,15 @@ setwd(wd)
 
 data = read.csv(file = "previous_studies_ggplot.csv")
 
-data$LOBE = factor(data$LOBE, levels = c("left", "cranial", "middle",
-                                         "caudal", "accessory"))
+data$LOBE = as.character(data$LOBE)
+data$LOBE[data$LOBE=="left"]="Left"
+data$LOBE[data$LOBE=="cranial"]="R.Cranial"
+data$LOBE[data$LOBE=="middle"]="R.Middle"
+data$LOBE[data$LOBE=="caudal"]="R.Caudal"
+data$LOBE[data$LOBE=="accessory"]="R.Accessory"
+data$LOBE = factor(data$LOBE, levels = c("Left", "R.Cranial", "R.Middle",
+                                         "R.Caudal", "R.Accessory"))
+
 data$STUDY = factor(data$STUDY, levels = c("This study", 
                                            "Brain et al. 1976", 
                                            "Yang et al. 2019"))
@@ -40,10 +47,10 @@ ggplot(data = data, aes(x = LOBE, y = DV, group = STUDY_ANIMAL,
                 width = 0.2,
                 position=position_dodge(dodge_radiance), size = 1) +
   ylab("DV Ratio") + 
-  xlab(NULL) +
+  xlab("Lung Lobe") +
   theme_classic() + 
   theme(text = element_text(size = 20, color = "black"),
         legend.title= element_text(size = 15),
         legend.text = element_text(size = 13)) +
   ggsave(filename = "fig2sub1.png", device = "png", 
-         width = 9, height = 6, dpi = 1200)
+         width = 10, height = 6, dpi = 1200)

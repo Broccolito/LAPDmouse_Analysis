@@ -116,5 +116,5 @@ p0.5 = ggplot(d$AciniDep, aes(x = mean)) +
 
 p4 = ggarrange(p0.5, p1, p2, nrow = 1)
 
-ggsave(filename = "Figure 2.png", plot = p4,
+ggsave(filename = "Figure 3.png", plot = p4,
        device = "png", width = 16, height = 6, dpi = 1200)

@@ -29,13 +29,18 @@ setwd(wd)
 data = as.data.frame(read_excel("080419_sample_summary_ggplot.xlsx"))
 data = data[data$Q != "C",] # Get rid of Quality C
 data$Name = as.factor(data$Name)
-data$lobe = factor(data$lobe, levels = c("left", "cranial", "middle", "caudal", "accessory"))
+data$lobe[data$lobe=="left"]="Left"
+data$lobe[data$lobe=="cranial"]="R.Cranial"
+data$lobe[data$lobe=="middle"]="R.Middle"
+data$lobe[data$lobe=="caudal"]="R.Caudal"
+data$lobe[data$lobe=="accessory"]="R.Accessory"
+data$lobe = factor(data$lobe, levels = c("Left", "R.Cranial", "R.Middle", "R.Caudal", "R.Accessory"))
 data$Strain = as.factor(data$Strain)
 data$PS = as.factor(data$PS)
 
 theme_set(theme_bw())
 p1 = ggplot(data = data, aes(x = lobe, y = pvratio, group = Name)) +
-  xlab("") +
+  xlab("Lung Lobe") +
   ylab("DV Ratio") +
   geom_point(aes(color = Strain, shape = Strain), size = 2.5) +
   scale_colour_grey(start = 0, end = 0.7) +

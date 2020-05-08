@@ -104,7 +104,7 @@ p1 = ggplot(data = reg_data, aes(x = psf, y = moment_list)) +
   geom_boxplot() + geom_point(col = "black", size = 2.5, position = "dodge") +
   stat_compare_means(comparisons = comparisons, size = 5) + 
   xlab("Particle Size (??m)") + 
-  ylab("Skewness") +
+  ylab("Skew") +
   theme_bw(base_size = 20) +
   ggtitle(label = NULL, subtitle = NULL) 
 # ggsave(filename = "skewness Vs. Particle Size.png", device = "png", dpi = 1200, width = 6, height = 6)
@@ -121,5 +121,5 @@ p2 = ggplot(data = reg_data, aes(x = psf, y = sd_list)) +
 
 p3 = ggarrange(p2, p1, nrow = 1)
 
-ggsave(filename = "Figure 3.png", plot = p3, 
+ggsave(filename = "Figure 4.png", plot = p3, 
        device = "png", width = 13, height = 6, dpi = 1200)
