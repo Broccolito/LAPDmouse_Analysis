@@ -50,7 +50,8 @@ ggplot(data = data, aes(x = LOBE, y = DV, group = STUDY_ANIMAL,
   xlab("Lung Lobe") +
   theme_classic() + 
   theme(text = element_text(size = 20, color = "black"),
-        legend.title= element_text(size = 15),
-        legend.text = element_text(size = 13)) +
+        legend.title = element_text(size = 15),
+        legend.text = element_text(size = 13),
+        axis.text.x = element_text(margin = margin(5,10,10,10))) +
   ggsave(filename = "fig2sub1.png", device = "png", 
          width = 10, height = 6, dpi = 1200)

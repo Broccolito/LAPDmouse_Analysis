@@ -24,10 +24,60 @@ get_directory = function(){
   }
 }
 
-wd = get_directory()
-setwd(wd)
+find_projection = function (p, l1 = NULL, l2 = NULL){
+  if(is.list(l1)){
+    if("l1" %in% names(l1)){
+      l2 = l1$l2
+      l1 = l1$l1
+    }
+    if("m" %in% names(l1)){
+      l2 = c(1, l1$m + l1$b)
+      l1 = c(0, l1$b)
+    }
+    if("a" %in% names(l1)){
+      l2 = c(1, -(l1$a + l1$c)/l1$b)
+      l1 = c(0, -l1$c/l1$b)
+    }
+  }
+  if(is.vector(p)){
+    p = matrix(p, nrow = 1, ncol = length(p))
+    return_vector = TRUE
+  }
+  else {
+    return_vector = FALSE
+  }
+  return_2d = FALSE
+  if(ncol(p) == 2){
+    p = cbind(p, rep(0, nrow(p)))
+    l1 = c(l1, 0)
+    l2 = c(l2, 0)
+    return_2d = TRUE
+  }
+  r = matrix(NA, nrow = nrow(p), ncol = ncol(p))
+  for (i in 1:nrow(p)){
+    if(is.null(l2))
+      l2 = 2 * l1
+    if(sum((l2 - l1)^2)== 0)
+      return(NA)
+    u = sum((p[i, ] - l1)* (l2 - l1))/sum((l2 - l1)^2)
+    r[i, ] = l1 + u * (l2 - l1)
+  }
+  if(return_vector && return_2d)
+    return(as.vector(r)[1:2])
+  if(return_vector && !return_2d)
+    return(as.vector(r))
+  if(!return_vector && return_2d)
+    return(r[, 1:2])
+}
 
-get_normal_plain = function(aw){
+get_depo_dist = function(sample_id){
+  aw_wd = "CSV_Data/mxx/mxx_AirwayTreeTable.csv"
+  dp_wd = "CSV_Data/mxx/mxx_NearAciniDeposition.csv"
+  aw_wd = gsub("mxx",sample_id,aw_wd)
+  dp_wd = gsub("mxx",sample_id,dp_wd)
+  aw = read.csv(aw_wd)
+  dp = read.csv(dp_wd)
+  
   lmb = filter(aw,parent==1,name=="LMB")
   rmb = filter(aw,parent==1,name=="RMB")
   
@@ -50,49 +100,62 @@ get_normal_plain = function(aw){
   x1 = mean(c(lx,rx))
   y1 = mean(c(ly,ry))
   z1 = mean(c(lz,rz))
-  pa = x1
-  pb = y1
-  pc = z1
-  pd = x1*itx+y1*ity+z1*itz
-  return(data.frame(a=pa,b=pb,c=pc,d=pd))
-}
-
-get_distance = function(normal_plane,dx,dy,dz){
-  pa = normal_plane$a
-  pb = normal_plane$b
-  pc = normal_plane$c
-  pd = normal_plane$d
-  dis = -(pa*dx+pb*dy+pc*dz-pd)/(sqrt(pa^2+pb^2+pc^2))
-  return(dis)
-}
-
-get_depo_distro = function(sample_id){
-  aw_wd = "CSV_Data/mxx/mxx_AirwayTreeTable.csv"
-  dp_wd = "CSV_Data/mxx/mxx_NearAciniDeposition.csv"
-  aw_wd = gsub("mxx",sample_id,aw_wd)
-  dp_wd = gsub("mxx",sample_id,dp_wd)
-  aw = read.csv(aw_wd)
-  dp = read.csv(dp_wd)
-  pn = get_normal_plain(aw)
-  depo_dis_mat = vector()
+  
+  dis = vector()
   for(i in 1:dim(dp)[1]){
-    depo_dis_list = data.frame(
-      id = sample_id,
-      depo = dp[i,]$mean,
-      dis = get_distance(pn,dp[i,]$centroidX,dp[i,]$centroidY,dp[i,]$centroidZ)
-    )
-    depo_dis_mat = rbind.data.frame(depo_dis_mat,depo_dis_list)
+    depo = dp[i,]
+    projection = find_projection(p = c(depo$centroidX,depo$centroidY,depo$centroidZ),
+                                 l1=list(l1=c(itx,ity,itz),l2=c(x1,y1,z1)))
+    dis = c(dis,((projection[1]-itx)^2+(projection[2]-ity)^2+(projection[3]-itz)^2)^0.5)
   }
-  return(depo_dis_mat)
+  
+  depo_distro = select(dp, mean,centroidX,centroidY,centroidZ) %>%
+    mutate(distance = dis) %>%
+    mutate(id = sample_id) %>%
+    mutate(depo = mean) %>%
+    select(id,depo,distance,centroidX,centroidY,centroidZ)
+  
+  # min_dist = depo_distro[which.min(depo_distro$distance),]
+  # min_projection = find_projection(p = c(min_dist$centroidX,min_dist$centroidY,min_dist$centroidZ),
+  #                                  l1=list(l1=c(itx,ity,itz),l2=c(x1,y1,z1)))
+  # min_distance = ((min_projection[1]-itx)^2+(min_projection[2]-ity)^2+(min_projection[3]-itz)^2)^0.5
+  # min_projection_point_dist = vector()
+  # project_origin_dist = vector()
+  # for(i in 1:dim(depo_distro)[1]){
+  #   depo = depo_distro[i,]
+  #   projection = find_projection(p = c(depo_distro$centroidX,
+  #                                      depo_distro$centroidY,
+  #                                      depo_distro$centroidZ),
+  #                                l1=list(l1=c(itx,ity,itz),l2=c(x1,y1,z1)))
+  #   min_projection_point_dist = c(min_projection_point_dist,
+  #                                 ((projection[1]-min_projection[1])^2+
+  #                                    (projection[2]-min_projection[1])^2+
+  #                                    (projection[3]-min_projection[1])^2)^0.5)
+  #   project_origin_dist = c(project_origin_dist,
+  #                           ((projection[1]-itx)^2 +
+  #                             (projection[2]-ity)^2 +
+  #                             (projection[3]-itz)^2)^0.5)
+  # }
+  # for(i in 1:length(project_origin_dist)){
+  #   if(project_origin_dist[i]<min_projection_point_dist[i]){
+  #     depo_distro$distance[i] = depo_distro$distance[i] * (-1)
+  #   }
+  # }
+  # dis = ifelse(project_origin_dist>min_projection_point_dist,dis,dis*(-1))
+  # depo_distro = mutate(depo_distro,distance=dis)
+  
+  return(depo_distro)
 }
+
+wd = get_directory()
+setwd(wd)
 
 samples = c(paste0("m0",seq(1,9)),paste0("m",seq(10,34)))
 
-depo_distro = vector()
+depo_distro_overall = vector()
 for(s in samples){
-  depo_distro = rbind.data.frame(depo_distro, get_depo_distro(s))
+  depo_distro_overall = rbind.data.frame(depo_distro_overall, get_depo_dist(s))
   cat(paste0("Sample ", s, " Processed ..\n"))
 }
 
-write.csv(depo_distro,"depo_dist.csv",quote = FALSE,row.names = FALSE)
-
+write.csv(depo_distro_overall,"depo_distro_overall.csv",quote = FALSE,row.names = FALSE)
