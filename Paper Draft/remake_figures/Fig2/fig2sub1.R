@@ -37,12 +37,12 @@ data$STUDY = factor(data$STUDY, levels = c("This study",
                                            "Brain et al. 1976", 
                                            "Yang et al. 2019"))
 
-dodge_radiance = 0.4
+dodge_radiance = 0.6
 ggplot(data = data, aes(x = LOBE, y = DV, group = STUDY_ANIMAL,
                         color = STUDY)) + 
-  scale_colour_grey(start = 0, end = 0.6) +
+  scale_colour_grey(start = 0, end = 0.8) +
   geom_point(aes(pch = ANIMAL), 
-             size = 3, position=position_dodge(dodge_radiance)) + 
+             size = 5, position=position_dodge(dodge_radiance)) + 
   geom_errorbar(aes(ymax = DV + SE, ymin = DV - SE), 
                 width = 0.2,
                 position=position_dodge(dodge_radiance), size = 1) +
@@ -53,5 +53,5 @@ ggplot(data = data, aes(x = LOBE, y = DV, group = STUDY_ANIMAL,
         legend.title = element_text(size = 15),
         legend.text = element_text(size = 13),
         axis.text.x = element_text(margin = margin(5,10,10,10))) +
-  ggsave(filename = "fig2sub1.png", device = "png", 
+  ggsave(filename = "fig2sub1.png", device = "png",
          width = 10, height = 6, dpi = 1200)

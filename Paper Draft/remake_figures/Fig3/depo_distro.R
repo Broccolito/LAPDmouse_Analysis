@@ -64,7 +64,7 @@ rm(AciniDep)
 
 fs = 23
 
-vlist = c("m08_data", "m27_data", "m34_data")
+vlist = c("m10_data", "m27_data", "m34_data")
 
 v = vlist[1]
 d = get(v)

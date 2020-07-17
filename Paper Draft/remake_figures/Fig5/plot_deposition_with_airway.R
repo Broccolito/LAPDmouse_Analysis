@@ -29,7 +29,7 @@ tryCatch({
   cat("All devices closed...\n")
 })
 
-plot_depo = function(airway_data, acini_depo, filename = "m08", plotting = TRUE){
+plot_depo = function(airway_data, acini_depo, filename = "m10", plotting = TRUE){
   
   depo_median = median(acini_depo$mean)
   
@@ -76,8 +76,8 @@ plot_depo = function(airway_data, acini_depo, filename = "m08", plotting = TRUE)
 }
 
 #Read the data
-airway_data_m08 = read.csv(file = "m08/m08_AirwayTreeTable.csv")
-acini_depo_m08 = read.csv("m08/m08_NearAciniDeposition.csv")
+airway_data_m10 = read.csv(file = "m10/m10_AirwayTreeTable.csv")
+acini_depo_m10 = read.csv("m10/m10_NearAciniDeposition.csv")
 
 airway_data_m27 = read.csv(file = "m27/m27_AirwayTreeTable.csv")
 acini_depo_m27 = read.csv("m27/m27_NearAciniDeposition.csv")
@@ -85,6 +85,6 @@ acini_depo_m27 = read.csv("m27/m27_NearAciniDeposition.csv")
 airway_data_m34 = read.csv(file = "m34/m34_AirwayTreeTable.csv")
 acini_depo_m34 = read.csv("m34/m34_NearAciniDeposition.csv")
 
-plot_depo(airway_data_m08, acini_depo_m08, "m08", T) # 1 micron
+plot_depo(airway_data_m10, acini_depo_m10, "m10", T) # 1 micron
 plot_depo(airway_data_m27, acini_depo_m27, "m27", T) # 2 micron
 plot_depo(airway_data_m34, acini_depo_m34, "m34", T) # 0.5 micron
