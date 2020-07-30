@@ -37,21 +37,30 @@ data$STUDY = factor(data$STUDY, levels = c("This study",
                                            "Brain et al. 1976", 
                                            "Yang et al. 2019"))
 
+data$STUDY_ANIMAL = factor(data$STUDY_ANIMAL,
+                           levels = c("Mice C57BL/6 (This study)",
+                                      "Mice C57BL/6 (Yang et al. 2019)",
+                                      "Rat Sprague Dawley (Brain et al. 1976)",
+                                      "Hamster Syrian Golden (Brain et al. 1976)"))
+
 dodge_radiance = 0.6
-ggplot(data = data, aes(x = LOBE, y = DV, group = STUDY_ANIMAL,
-                        color = STUDY)) + 
-  scale_colour_grey(start = 0, end = 0.8) +
-  geom_point(aes(pch = ANIMAL), 
+ggplot(data = data, aes(x = LOBE, y = DV)) + 
+  # scale_colour_grey(start = 0, end = 0.8) +
+  geom_point(aes(pch = STUDY_ANIMAL), 
              size = 5, position=position_dodge(dodge_radiance)) + 
-  geom_errorbar(aes(ymax = DV + SE, ymin = DV - SE), 
+  scale_shape_manual(values=c(16,1,12,2)) +
+  guides(shape = guide_legend(nrow = 2)) + 
+  geom_errorbar(aes(ymax = DV + SE, ymin = DV - SE,group = STUDY_ANIMAL), 
                 width = 0.2,
-                position=position_dodge(dodge_radiance), size = 1) +
+                position=position_dodge(dodge_radiance)) +
   ylab("DV Ratio") + 
   xlab("Lung Lobe") +
   theme_classic() + 
   theme(text = element_text(size = 20, color = "black"),
-        legend.title = element_text(size = 15),
+        # legend.title = element_text(size = 15),
+        legend.title = element_blank(),
         legend.text = element_text(size = 13),
-        axis.text.x = element_text(margin = margin(5,10,10,10))) +
+        axis.text.x = element_text(margin = margin(5,10,10,10)),
+        legend.position = "top") + 
   ggsave(filename = "fig2sub1.png", device = "png",
-         width = 10, height = 6, dpi = 1200)
+         width = 8, height = 6, dpi = 1200)

@@ -34,30 +34,37 @@ data$LOBE[data$LOBE=="accessory"]="R.Accessory"
 data$LOBE = factor(data$LOBE, levels = c("Left", "R.Cranial", "R.Middle",
                                          "R.Caudal", "R.Accessory"))
 
+data$PS = paste(data$PS,"μm")
+
 data$STUDY = factor(data$STUDY, levels = c("This study", 
                                            "Brain et al. 1976", 
                                            "Yang et al. 2019"))
 data$PS = as.factor(data$PS)
-data$STUDY_SIZE = paste(data$STUDY, data$PS)
+data$STUDY_SIZE = paste0(data$PS," (",data$STUDY,")")
+data$STUDY_SIZE = as.factor(data$STUDY_SIZE)
+data$STUDY_SIZE = factor(data$STUDY_SIZE,
+                         levels = c("1 µm (This study)",
+                                    "2 µm (This study)",
+                                    "3.5 µm (Yang et al. 2019)"))
 data = subset(data, ANIMAL == "Mice C57BL/6")
 
 dodge_radiance = 0.4
 
-# kable(data)
-`PARTICLE SIZE (??m)` = data$PS
-ggplot(data = data, aes(x = LOBE, y = DV, group = STUDY_SIZE,
-                        color = STUDY)) + 
-  scale_colour_grey(start = 0, end = 0.5) +
-  geom_point(aes(cex = `PARTICLE SIZE (??m)`), position=position_dodge(dodge_radiance)) + 
+ggplot(data = data, aes(x = LOBE, y = DV, group = STUDY_SIZE)) + 
+  geom_point(aes(pch = STUDY_SIZE), size = 5,
+             position=position_dodge(dodge_radiance)) + 
+  scale_shape_manual(values=c(16,15,1)) +
   geom_errorbar(aes(ymax = DV + SE, ymin = DV - SE), 
                 width = 0.2,
-                position=position_dodge(dodge_radiance), size = 1) +
+                position=position_dodge(dodge_radiance)) +
   ylab("DV Ratio") + 
   xlab("Lung Lobe") +
   theme_classic() + 
   theme(text = element_text(size = 20, color = "black"),
-        legend.title= element_text(size = 15),
+        legend.title= element_blank(),
         legend.text = element_text(size = 13),
-        axis.text.x = element_text(margin = margin(5,10,10,10))) + 
+        axis.text.x = element_text(margin = margin(5,10,10,10)),
+        legend.position = "top") + 
   ggsave(filename = "fig2sub2.png", device = "png", 
-         width = 10, height = 6, dpi = 1200)
+         width = 8, height = 6, dpi = 1200)
+
