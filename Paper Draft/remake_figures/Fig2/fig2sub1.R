@@ -36,6 +36,7 @@ data$LOBE = factor(data$LOBE, levels = c("Left", "R.Cranial", "R.Middle",
 data$STUDY = factor(data$STUDY, levels = c("This study", 
                                            "Brain et al. 1976", 
                                            "Yang et al. 2019"))
+<<<<<<< HEAD
 
 data$STUDY_ANIMAL = factor(data$STUDY_ANIMAL,
                            levels = c("Mice C57BL/6 (This study)",
@@ -51,15 +52,28 @@ ggplot(data = data, aes(x = LOBE, y = DV)) +
   scale_shape_manual(values=c(16,1,12,2)) +
   guides(shape = guide_legend(nrow = 2)) + 
   geom_errorbar(aes(ymax = DV + SE, ymin = DV - SE,group = STUDY_ANIMAL), 
+=======
+data$STUDY_ANIMAL = factor(levels = c("Mice C57BL/6 (This study)",
+                                      "Mice C57BL/6 (Yang et al. 2019)",
+                                      "Rat Sprague Dawley (Brain et al. 1976)",
+                                      "Hamster Syrian Golden (Brain et al. 1976)"))
+dodge_radiance = 0.6
+plt1 = ggplot(data = data, aes(x = LOBE, y = DV,
+                        shape = STUDY_ANIMAL)) +
+  geom_point(size = 5, position=position_dodge(dodge_radiance)) + 
+  geom_errorbar(aes(ymax = DV + SE, ymin = DV - SE), 
+>>>>>>> 9074619c4fcc85f36643da8b005b702266532920
                 width = 0.2,
                 position=position_dodge(dodge_radiance)) +
   ylab("DV Ratio") + 
   xlab("Lung Lobe") +
+  # guide(shape = "") + 
   theme_classic() + 
   theme(text = element_text(size = 20, color = "black"),
         # legend.title = element_text(size = 15),
         legend.title = element_blank(),
         legend.text = element_text(size = 13),
+<<<<<<< HEAD
         axis.text.x = element_text(margin = margin(5,10,10,10),colour="black"),
         axis.text.y = element_text(colour = "black"),
         axis.ticks.x = element_line(colour = "black"),
@@ -67,3 +81,9 @@ ggplot(data = data, aes(x = LOBE, y = DV)) +
         legend.position = "top") + 
   ggsave(filename = "fig2sub1.png", device = "png",
          width = 8, height = 6, dpi = 1200)
+=======
+        axis.text.x = element_text(margin = margin(5,10,10,10))) +
+  ggsave(filename = "sub1.png",device = "png",dpi=1200)
+
+plt1
+>>>>>>> 9074619c4fcc85f36643da8b005b702266532920
