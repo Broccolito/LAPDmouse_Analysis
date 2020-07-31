@@ -50,6 +50,9 @@ p1 = ggplot(data = data, aes(x = lobe, y = pvratio, group = Name)) +
   theme_bw(base_size = 20) +
   theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 20), 
         legend.text=element_text(size=15),
+        axis.ticks.x = element_line(colour = "black"),
+        axis.ticks.y = element_line(colour = "black"),
+        axis.text = element_text(colour = "black"),
         strip.text = element_blank())
 ggsave(filename = "DVratio_across_lobe.png",
        width = 16, height = 7, device = "png", dpi = 1200)

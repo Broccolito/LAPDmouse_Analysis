@@ -77,7 +77,10 @@ p1 = ggplot(d$AciniDep, aes(x = mean)) +
   xlab("Mean Aerosol Deposition (a.u.)") +
   geom_density(alpha=.2, fill="gray45") + 
   ggtitle(label = NULL, subtitle = NULL) + 
-  theme_bw(base_size = fs)
+  theme_bw(base_size = fs) + 
+  theme(axis.ticks.x = element_line(colour = "black"),
+        axis.ticks.y = element_line(colour = "black"),
+        axis.text = element_text(colour = "black"))
 
 # ggsave(filename = paste0(unlist(strsplit(v, "_"))[1], " Near Acini Aerosol Distro 1 micron.png"), 
 #        device = "png", width = 10, height = 10)
@@ -93,7 +96,10 @@ p2 = ggplot(d$AciniDep, aes(x = mean)) +
   xlab("") +
   geom_density(alpha=.2, fill="gray45") + 
   ggtitle(label = NULL, subtitle = NULL) + 
-  theme_bw(base_size = fs)
+  theme_bw(base_size = fs) + 
+  theme(axis.ticks.x = element_line(colour = "black"),
+        axis.ticks.y = element_line(colour = "black"),
+        axis.text = element_text(colour = "black"))
 
 # ggsave(filename = paste0(unlist(strsplit(v, "_"))[1], " Near Acini Aerosol Distro 2 micron.png"), 
 #        device = "png", width = 10, height = 10)
@@ -109,7 +115,10 @@ p0.5 = ggplot(d$AciniDep, aes(x = mean)) +
   xlab("") +
   geom_density(alpha=.2, fill="gray45") + 
   ggtitle(label = NULL, subtitle = NULL) +  
-  theme_bw(base_size = fs)
+  theme_bw(base_size = fs) + 
+  theme(axis.ticks.x = element_line(colour = "black"),
+        axis.ticks.y = element_line(colour = "black"),
+        axis.text = element_text(colour = "black"))
 
 # ggsave(filename = paste0(unlist(strsplit(v, "_"))[1], " Near Acini Aerosol Distro 0.5 micron.png"), 
 #        device = "png", width = 10, height = 10)

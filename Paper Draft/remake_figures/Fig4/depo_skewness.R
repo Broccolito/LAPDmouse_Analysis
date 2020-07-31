@@ -106,7 +106,10 @@ p1 = ggplot(data = reg_data, aes(x = psf, y = moment_list)) +
   xlab("Particle Size (??m)") + 
   ylab("Skew") +
   theme_bw(base_size = 20) +
-  ggtitle(label = NULL, subtitle = NULL) 
+  ggtitle(label = NULL, subtitle = NULL) +
+  theme(axis.ticks.x = element_line(colour = "black"),
+        axis.ticks.y = element_line(colour = "black"),
+        axis.text = element_text(colour = "black"))
 # ggsave(filename = "skewness Vs. Particle Size.png", device = "png", dpi = 1200, width = 6, height = 6)
 
 
@@ -116,7 +119,10 @@ p2 = ggplot(data = reg_data, aes(x = psf, y = sd_list)) +
   xlab("Particle Size (??m)") + 
   ylab("Standard Deviation") + 
   theme_bw(base_size = 20) +
-  ggtitle(label = NULL, subtitle = NULL)
+  ggtitle(label = NULL, subtitle = NULL) + 
+  theme(axis.ticks.x = element_line(colour = "black"),
+        axis.ticks.y = element_line(colour = "black"),
+        axis.text = element_text(colour = "black"))
 # ggsave(filename = "std Vs. Particle Size.png", device = "png", dpi = 1200, width = 6, height = 6)
 
 p3 = ggarrange(p2, p1, nrow = 1)

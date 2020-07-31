@@ -34,7 +34,7 @@ data$LOBE[data$LOBE=="accessory"]="R.Accessory"
 data$LOBE = factor(data$LOBE, levels = c("Left", "R.Cranial", "R.Middle",
                                          "R.Caudal", "R.Accessory"))
 
-data$PS = paste(data$PS,"Î¼m")
+data$PS = paste(data$PS,"µm")
 
 data$STUDY = factor(data$STUDY, levels = c("This study", 
                                            "Brain et al. 1976", 
@@ -43,9 +43,9 @@ data$PS = as.factor(data$PS)
 data$STUDY_SIZE = paste0(data$PS," (",data$STUDY,")")
 data$STUDY_SIZE = as.factor(data$STUDY_SIZE)
 data$STUDY_SIZE = factor(data$STUDY_SIZE,
-                         levels = c("1 Âµm (This study)",
-                                    "2 Âµm (This study)",
-                                    "3.5 Âµm (Yang et al. 2019)"))
+                         levels = c("1 µm (This study)",
+                                    "2 µm (This study)",
+                                    "3.5 µm (Yang et al. 2019)"))
 data = subset(data, ANIMAL == "Mice C57BL/6")
 
 dodge_radiance = 0.4
@@ -63,7 +63,10 @@ ggplot(data = data, aes(x = LOBE, y = DV, group = STUDY_SIZE)) +
   theme(text = element_text(size = 20, color = "black"),
         legend.title= element_blank(),
         legend.text = element_text(size = 13),
-        axis.text.x = element_text(margin = margin(5,10,10,10)),
+        axis.text.x = element_text(margin = margin(5,10,10,10),colour = "black"),
+        axis.text.y = element_text(colour = "black"),
+        axis.ticks.x = element_line(colour = "black"),
+        axis.ticks.y = element_line(colour = "black"),
         legend.position = "top") + 
   ggsave(filename = "fig2sub2.png", device = "png", 
          width = 8, height = 6, dpi = 1200)

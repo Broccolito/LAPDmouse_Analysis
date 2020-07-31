@@ -60,7 +60,10 @@ ggplot(data = data, aes(x = LOBE, y = DV)) +
         # legend.title = element_text(size = 15),
         legend.title = element_blank(),
         legend.text = element_text(size = 13),
-        axis.text.x = element_text(margin = margin(5,10,10,10)),
+        axis.text.x = element_text(margin = margin(5,10,10,10),colour="black"),
+        axis.text.y = element_text(colour = "black"),
+        axis.ticks.x = element_line(colour = "black"),
+        axis.ticks.y = element_line(colour = "black"),
         legend.position = "top") + 
   ggsave(filename = "fig2sub1.png", device = "png",
          width = 8, height = 6, dpi = 1200)
