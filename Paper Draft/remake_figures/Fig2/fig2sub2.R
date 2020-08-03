@@ -51,12 +51,13 @@ data = subset(data, ANIMAL == "Mice C57BL/6")
 dodge_radiance = 0.4
 
 ggplot(data = data, aes(x = LOBE, y = DV, group = STUDY_SIZE)) + 
-  geom_point(aes(pch = STUDY_SIZE), size = 5,
-             position=position_dodge(dodge_radiance)) + 
-  scale_shape_manual(values=c(16,15,1)) +
   geom_errorbar(aes(ymax = DV + SE, ymin = DV - SE), 
                 width = 0.2,
                 position=position_dodge(dodge_radiance)) +
+  geom_point(aes(pch = STUDY_SIZE), size = 5,
+             position=position_dodge(dodge_radiance),
+             color = "black", fill = "white", stroke = 1) + 
+  scale_shape_manual(values=c(16,15,21)) +
   ylab("DV Ratio") + 
   xlab("Lung Lobe") +
   theme_classic() + 
